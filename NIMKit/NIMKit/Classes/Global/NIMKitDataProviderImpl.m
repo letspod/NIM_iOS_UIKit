@@ -150,7 +150,7 @@
     info.showName    = team.teamName;
     info.infoId      = teamId;
     info.avatarImage = self.defaultTeamAvatar;
-    info.avatarUrlString = team.thumbAvatarUrl;
+    info.avatarUrlString = team.avatarUrl;
     return info;
 }
 
@@ -162,7 +162,7 @@
     info.showName    = team.teamName;
     info.infoId      = teamId;
     info.avatarImage = self.defaultTeamAvatar;
-    info.avatarUrlString = team.thumbAvatarUrl;
+    info.avatarUrlString = team.avatarUrl;
     return info;
 }
 
@@ -284,7 +284,7 @@
                                            nick:nil
                                          option:option];
         info.showName = name?:userId;
-        info.avatarUrlString = userInfo.thumbAvatarUrl;
+        info.avatarUrlString = userInfo.avatarUrl;
         info.avatarImage = self.defaultUserAvatar;
     }
     return info;
@@ -312,7 +312,7 @@
                                            nick:member.nickname
                                          option:option];
         info.showName = name?:userId;
-        info.avatarUrlString = userInfo.thumbAvatarUrl;
+        info.avatarUrlString = userInfo.avatarUrl;
         info.avatarImage = self.defaultUserAvatar;
     }
     return  info;
@@ -339,7 +339,7 @@
                                            nick:member.nickname
                                          option:option];
         info.showName = name?:userId;
-        info.avatarUrlString = userInfo.thumbAvatarUrl;
+        info.avatarUrlString = userInfo.avatarUrl;
         info.avatarImage = self.defaultUserAvatar;
     }
     return  info;
@@ -376,7 +376,7 @@
             {
                 NIMUser *user = [[NIMSDK sharedSDK].userManager userInfo:userId];
                 info.showName        = user.userInfo.nickName;
-                info.avatarUrlString = user.userInfo.thumbAvatarUrl;
+                info.avatarUrlString = user.userInfo.avatarUrl;
             }
                 break;
             default:
