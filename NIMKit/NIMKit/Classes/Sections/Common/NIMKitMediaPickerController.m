@@ -18,20 +18,33 @@
 @end
 
 @implementation NIMKitMediaPickerController
-
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount {
     if (self = [super initWithMaxImagesCount:maxImagesCount delegate:nil]) {
         self.pickerDelegate = self;
+        self.navigationBar.barStyle = UIBarStyleDefault;
+        self.naviBgColor = [UIColor whiteColor];
+        self.naviTitleColor = [UIColor darkTextColor];
+        self.barItemTextColor = [UIColor darkTextColor];
+        self.navigationBar.tintColor = [UIColor darkTextColor];
+        self.allowPickingVideo = NO;
+        self.allowTakeVideo = NO;
+        self.allowPickingGif = NO;
+        self.allowCameraLocation = NO;
     }
     return self;
 }
 
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate {
     if (self = [super initWithMaxImagesCount:maxImagesCount delegate:delegate]) {
-        self.navigationBar.barStyle = UIBarStyleDefault;
-        self.naviBgColor = [UIColor blackColor];
-        self.naviTitleColor = [UIColor whiteColor];
-        self.barItemTextColor = [UIColor whiteColor];
+        self.navigationBar.barStyle = UIBarStyleBlack;
+        self.naviBgColor = [UIColor whiteColor];
+        self.naviTitleColor = [UIColor darkTextColor];
+        self.barItemTextColor = [UIColor darkTextColor];
+        self.navigationBar.tintColor = [UIColor darkTextColor];
+        self.allowPickingVideo = NO;
+        self.allowTakeVideo = NO;
+        self.allowPickingGif = NO;
+        self.allowCameraLocation = NO;
     }
     return self;
 }
