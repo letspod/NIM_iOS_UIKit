@@ -36,7 +36,9 @@
 {
     self = [super init];
     if (self) {
-        _mediaTypes = @[(NSString *)kUTTypeMovie,(NSString *)kUTTypeImage, (NSString *)kUTTypeGIF];
+        // 禁止使用视频和动图
+//         _mediaTypes = @[(NSString *)kUTTypeMovie,(NSString *)kUTTypeImage, (NSString *)kUTTypeGIF];
+        _mediaTypes = @[(NSString *)kUTTypeImage];
         _limit = 9;
     }
     return self;
