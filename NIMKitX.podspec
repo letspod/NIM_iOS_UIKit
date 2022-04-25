@@ -1,11 +1,11 @@
 Pod::Spec.new do |s| 
-  s.name = 'NIMKit' 
-  s.version = '3.7.0.1' 
+  s.name = 'NIMKitX' 
+  s.version = '3.7.0' 
   s.summary = 'Netease IM UI Kit' 
   s.homepage = 'http://netease.im' 
   s.license = { :'type' => 'Copyright', :'text' => ' Copyright 2021 Netease '}
   s.authors = 'Netease IM Team'  
-  s.source  = { :git => 'git@github.com:letspod/NIM_iOS_UIKit.git', :tag => '3.7.0'}  
+  s.source  = { :git => 'git@github.com:letspod/NIM_iOS_UIKit.git', :tag => "#{s.version}"}  
   s.platform = :ios, '9.0' 
   s.frameworks = 'CoreText', 'SystemConfiguration', 'AVFoundation', 'CoreTelephony', 'AudioToolbox', 'CoreMedia' , 'VideoToolbox' 
   s.libraries  = 'sqlite3.0', 'z', 'c++' 
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Full' do |cs|
     cs.source_files  = 'NIMKit/NIMKit/Classes/**/*.{h,m}'
-    cs.dependency 'NIMKit/Core'
+    cs.dependency "#{s.name}/Core"
     cs.dependency 'NIMSDK', '~> 8.7.0'
   end
 
@@ -31,20 +31,20 @@ Pod::Spec.new do |s|
     os.dependency 'TZImagePickerController', '~> 3.5.2'  
     os.dependency 'M80AttributedLabel', '~> 1.9.9' 
     os.dependency 'YYImage', '~> 1.0.4'
-	os.dependency 'YYImage/WebP', '~> 1.0.4'       
+    os.dependency 'YYImage/WebP', '~> 1.0.4'       
 	      
   end
 
 
   s.subspec 'Full_Free' do |cs|
     cs.source_files  = 'NIMKit/NIMKit/Classes/**/*.{h,m}'
-    cs.dependency 'NIMKit/Core_Free'
+    cs.dependency "#{s.name}/Core_Free"
     cs.dependency 'NIMSDK', '~> 8.7.0'
   end
 
   s.subspec 'Lite_Free' do |cs|
     cs.source_files  = 'NIMKit/NIMKit/Classes/**/*.{h,m}'
-    cs.dependency 'NIMKit/Core_Free'
+    cs.dependency "#{s.name}/Core_Free"
     cs.dependency 'NIMSDK_LITE', '~> 8.7.0'
   end
 
@@ -56,10 +56,10 @@ Pod::Spec.new do |s|
     os.dependency 'M80AttributedLabel'
     os.dependency 'TZImagePickerController'
     os.dependency 'YYImage'
-	os.dependency 'YYImage/WebP'
+    os.dependency 'YYImage/WebP'
   end
 
-  
+
 
   s.default_subspec = 'Lite'  
 
