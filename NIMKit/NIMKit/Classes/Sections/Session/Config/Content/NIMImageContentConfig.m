@@ -13,13 +13,11 @@
 @implementation NIMImageContentConfig
 - (CGSize)contentSize:(CGFloat)cellWidth message:(NIMMessage *)message
 {
-    NIMImageObject *imageObject = (NIMImageObject*)[message messageObject];
+     NIMImageObject *imageObject = (NIMImageObject*)[message messageObject];
     NSAssert([imageObject isKindOfClass:[NIMImageObject class]], @"message should be image");
     
-    CGFloat attachmentImageMinWidth  = (cellWidth / 4.0);
-    CGFloat attachmentImageMinHeight = (cellWidth / 4.0);
-    CGFloat attachmemtImageMaxWidth  = (cellWidth - 184);
-    CGFloat attachmentImageMaxHeight = (cellWidth - 184);
+    CGFloat attachmentImageMinWidth  = (cellWidth / 3.0);
+    CGFloat attachmemtImageMaxWidth  = (cellWidth / 2.0);
     
 
     CGSize imageSize;
@@ -31,10 +29,18 @@
         UIImage *image = [UIImage imageWithContentsOfFile:imageObject.thumbPath];
         imageSize = image ? image.size : CGSizeZero;
     }
-    CGSize contentSize = [UIImage nim_sizeWithImageOriginSize:imageSize
-                                                   minSize:CGSizeMake(attachmentImageMinWidth, attachmentImageMinHeight)
-                                                   maxSize:CGSizeMake(attachmemtImageMaxWidth, attachmentImageMaxHeight )];
-    return contentSize;
+    if (imageSize.width > attachmemtImageMaxWidth) {
+        imageSize.height = attachmemtImageMaxWidth / imageSize.width * imageSize.height;
+        imageSize.width = attachmemtImageMaxWidth;
+    } else if (imageSize.width < attachmentImageMinWidth) {
+        imageSize.height = attachmentImageMinWidth / imageSize.width * imageSize.height;
+        imageSize.width = attachmentImageMinWidth;
+    }
+    if (imageSize.height > attachmemtImageMaxWidth) {
+        imageSize.width = attachmemtImageMaxWidth / imageSize.height * imageSize.width;
+        imageSize.height = attachmemtImageMaxWidth;
+    }
+    return imageSize;
 }
 
 - (NSString *)cellContent:(NIMMessage *)message
