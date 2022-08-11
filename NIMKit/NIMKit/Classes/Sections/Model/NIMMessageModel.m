@@ -67,7 +67,7 @@ static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWit
     }
     NSString *text = self.message.text;
     NSMutableArray *link = [NSMutableArray array];
-    while (TRUE) {
+    while (text) {
         NSTextCheckingResult *result = [[linkRegex matchesInString:text options:0 range:NSMakeRange(0, text.length)] firstObject];
         if (result == NULL) {
             break;

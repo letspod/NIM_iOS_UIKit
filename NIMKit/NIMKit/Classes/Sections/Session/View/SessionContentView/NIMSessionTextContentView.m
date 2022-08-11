@@ -44,7 +44,7 @@ NSString *const NIMTextMessageLabelLinkData = @"NIMTextMessageLabelLinkData";
     self.textLabel.font = setting.font;
     [self.textLabel nim_setText:text];
 
-    for (NIMLinkModel *link in data) {
+    for (NIMLinkModel *link in data.links) {
         [self.textLabel addCustomLink:link.linkValue forRange:link.range];
     }
 }
