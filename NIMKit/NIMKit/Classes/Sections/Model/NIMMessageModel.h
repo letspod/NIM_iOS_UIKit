@@ -9,6 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "NIMSessionConfig.h"
 
+
+@interface NIMLinkModel : NSObject
+
+@property (nonatomic,copy) NSString *title;
+@property (nonatomic,copy) NSString *linkValue;
+@property (nonatomic,assign) NSRange range;
+
+@end
+
+
 @interface NIMMessageModel : NSObject
 
 /**
@@ -91,6 +101,7 @@
 @property (nonatomic) CGSize emoticonsContainerSize; //显示快捷表情回复内容
 
 
+@property (nonatomic, copy) NSArray<NIMLinkModel* > *links; //链接数组
 /**
  *  NIMMessage封装成NIMMessageModel的方法
  *

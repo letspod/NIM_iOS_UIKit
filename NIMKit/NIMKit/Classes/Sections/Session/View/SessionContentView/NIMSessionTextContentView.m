@@ -43,6 +43,10 @@ NSString *const NIMTextMessageLabelLinkData = @"NIMTextMessageLabelLinkData";
     self.textLabel.textColor = setting.textColor;
     self.textLabel.font = setting.font;
     [self.textLabel nim_setText:text];
+
+    for (NIMLinkModel *link in data) {
+        [self.textLabel addCustomLink:link.linkValue forRange:link.range];
+    }
 }
 
 - (void)layoutSubviews{
