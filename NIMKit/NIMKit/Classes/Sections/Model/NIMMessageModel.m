@@ -26,7 +26,6 @@ static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWit
     if (titleRegex == nil) {
         titleRegex = [[NSRegularExpression alloc] initWithPattern:@"\\[(.*?)\\]" options:NSRegularExpressionCaseInsensitive error:nil];
     }
-    NSString *text = self.message.text;
     NSMutableArray *link = [NSMutableArray array];
     while (text) {
         NSTextCheckingResult *result = [[linkRegex matchesInString:text options:0 range:NSMakeRange(0, text.length)] firstObject];
@@ -100,9 +99,9 @@ static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWit
    
     NIMLinkModelPraserResult *result = [NIMLinkModelPraserResult praser:self.message.text];
     _links = result.links;
-    if (link.count > 0) {
+    if (_links > 0) {
         self.message.localExt = @{ @"displayText": result.text };
-        self.message.apnsContent = text;
+        self.message.apnsContent = result.text;
     }
 }
 
