@@ -37,7 +37,7 @@ NSString *const NIMTextMessageLabelLinkData = @"NIMTextMessageLabelLinkData";
 
 - (void)refresh:(NIMMessageModel *)data{
     [super refresh:data];
-    NSString *text = self.model.message.text;
+    NSString *text = self.model.message.displayText;
     NIMKitSetting *setting = [[NIMKit sharedKit].config setting:data.message];
 
     self.textLabel.textColor = setting.textColor;

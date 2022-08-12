@@ -157,3 +157,9 @@
            completion:(void(^)(NSMapTable *))completion;
 
 @end
+
+@interface NIMMessage (DisplayText)
+
+- (NSString *) displayText;
+
+@end

@@ -21,7 +21,7 @@
 
 - (CGSize)contentSize:(CGFloat)cellWidth message:(NIMMessage *)message
 {
-    NSString *text = message.text;
+    NSString *text = message.displayText;
     self.label.font = [[NIMKit sharedKit].config setting:message].font;
     
     [self.label nim_setText:text];    

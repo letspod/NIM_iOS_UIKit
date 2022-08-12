@@ -86,7 +86,9 @@ static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWit
         [link addObject:model];
     }
     _links = link;
-    _message.text = text;
+    if (link.count > 0) {
+        self.message.localExt = @{ @"displayText": text };
+    }
 }
 
 - (void)cleanCache
@@ -234,6 +236,15 @@ static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWit
             completion(result);
         }
     }];
+}
+
+@end
+
+
+@implementation NIMMessage (DisplayText)
+
+- (NSString *) displayText {
+    return [self.localExt valueForKey: @"displayText"] ?: self.text;
 }
 
 @end
