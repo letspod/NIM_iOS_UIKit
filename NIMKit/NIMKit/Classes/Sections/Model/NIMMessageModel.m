@@ -11,6 +11,46 @@
 #import "NIMKitQuickCommentUtil.h"
 
 @implementation NIMLinkModel
+@end
+
+
+static NSRegularExpression *linkRegex; //= [[NSRegularExpression alloc] initWithPattern:@"\\[.*?\\]\\((.*?)\\)" options:NSRegularExpressionCaseInsensitive error:nil];
+static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWithPattern:@"\\[(.*?)\\]" options:NSRegularExpressionCaseInsensitive error:nil];
+
+@implementation NIMLinkModelPraserResult
+
++ (NIMLinkModelPraserResult *) praser:(NSString *)text {
+    if (linkRegex == nil) {
+        linkRegex = [[NSRegularExpression alloc] initWithPattern:@"\\[.*?\\]\\((.*?)\\)" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    if (titleRegex == nil) {
+        titleRegex = [[NSRegularExpression alloc] initWithPattern:@"\\[(.*?)\\]" options:NSRegularExpressionCaseInsensitive error:nil];
+    }
+    NSString *text = self.message.text;
+    NSMutableArray *link = [NSMutableArray array];
+    while (text) {
+        NSTextCheckingResult *result = [[linkRegex matchesInString:text options:0 range:NSMakeRange(0, text.length)] firstObject];
+        if (result == NULL) {
+            break;
+        }
+        NSTextCheckingResult *titleResult = [[titleRegex matchesInString:text options:0 range: result.range] firstObject];
+        if (titleResult == NULL) {
+            break;
+        }   
+        NSString *linkValue = [text substringWithRange: [result rangeAtIndex:1]];
+        NSString *title = [text substringWithRange: [titleResult rangeAtIndex:1]];
+        text = [text stringByReplacingCharactersInRange:result.range withString:title];
+        NIMLinkModel *model = [[NIMLinkModel alloc] init];
+        model.title = title;
+        model.linkValue = linkValue;
+        model.range = NSMakeRange(result.range.location, title.length);
+        [link addObject:model];
+    }
+    NIMLinkModelPraserResult * result = [[NIMLinkModelPraserResult alloc] init];
+    result.text = text;
+    result.links = link;
+    return result;
+}
 
 @end
 
@@ -21,8 +61,6 @@
 
 @end
 
-static NSRegularExpression *linkRegex; //= [[NSRegularExpression alloc] initWithPattern:@"\\[.*?\\]\\((.*?)\\)" options:NSRegularExpressionCaseInsensitive error:nil];
-static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWithPattern:@"\\[(.*?)\\]" options:NSRegularExpressionCaseInsensitive error:nil];
 
 @implementation NIMMessageModel
 
@@ -59,35 +97,11 @@ static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWit
 }
 
 - (void) updateLinks {
-    if (linkRegex == nil) {
-        linkRegex = [[NSRegularExpression alloc] initWithPattern:@"\\[.*?\\]\\((.*?)\\)" options:NSRegularExpressionCaseInsensitive error:nil];
-    }
-    if (titleRegex == nil) {
-        titleRegex = [[NSRegularExpression alloc] initWithPattern:@"\\[(.*?)\\]" options:NSRegularExpressionCaseInsensitive error:nil];
-    }
-    NSString *text = self.message.text;
-    NSMutableArray *link = [NSMutableArray array];
-    while (text) {
-        NSTextCheckingResult *result = [[linkRegex matchesInString:text options:0 range:NSMakeRange(0, text.length)] firstObject];
-        if (result == NULL) {
-            break;
-        }
-        NSTextCheckingResult *titleResult = [[titleRegex matchesInString:text options:0 range: result.range] firstObject];
-        if (titleResult == NULL) {
-            break;
-        }   
-        NSString *linkValue = [text substringWithRange: [result rangeAtIndex:1]];
-        NSString *title = [text substringWithRange: [titleResult rangeAtIndex:1]];
-        text = [text stringByReplacingCharactersInRange:result.range withString:title];
-        NIMLinkModel *model = [[NIMLinkModel alloc] init];
-        model.title = title;
-        model.linkValue = linkValue;
-        model.range = NSMakeRange(result.range.location, title.length);
-        [link addObject:model];
-    }
-    _links = link;
+   
+    NIMLinkModelPraserResult *result = [NIMLinkModelPraserResult praser:self.message.text];
+    _links = result.links;
     if (link.count > 0) {
-        self.message.localExt = @{ @"displayText": text };
+        self.message.localExt = @{ @"displayText": result.text };
         self.message.apnsContent = text;
     }
 }

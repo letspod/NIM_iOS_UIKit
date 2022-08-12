@@ -18,6 +18,15 @@
 
 @end
 
+@interface NIMLinkModelPraserResult : NSObject
+
+@property (nonatomic,strong) NSArray<NIMLinkModel *> *links;
+@property (nonatomic,strong) NSString *text;
+
++ (NIMLinkModelPraserResult *) praser:(NSString *)text;
+
+@end
+
 
 @interface NIMMessageModel : NSObject
 
