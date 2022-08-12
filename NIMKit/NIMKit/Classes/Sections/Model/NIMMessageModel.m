@@ -88,6 +88,7 @@ static NSRegularExpression *titleRegex;// = [[NSRegularExpression alloc] initWit
     _links = link;
     if (link.count > 0) {
         self.message.localExt = @{ @"displayText": text };
+        self.message.apnsContent = text;
     }
 }
 
