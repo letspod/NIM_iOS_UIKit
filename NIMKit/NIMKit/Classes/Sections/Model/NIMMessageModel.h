@@ -12,20 +12,21 @@
 
 @interface NIMLinkModel : NSObject
 
-@property (nonatomic,copy) NSString *title;
-@property (nonatomic,copy) NSString *linkValue;
+@property (nonatomic,copy, nonnull) NSString *title;
+@property (nonatomic,copy, nonnull) NSString *linkValue;
 @property (nonatomic,assign) NSRange range;
 
 @end
 
 @interface NIMLinkModelPraserResult : NSObject
 
-@property (nonatomic,strong) NSArray<NIMLinkModel *> *links;
-@property (nonatomic,strong) NSString *text;
+@property (nonatomic,strong, nonnull) NSArray<NIMLinkModel *> *links;
+@property (nonatomic,strong, nonnull) NSString *text;
 
 + (nonnull NIMLinkModelPraserResult *) praser:(NSString *)text;
 
 @end
+
 
 
 @interface NIMMessageModel : NSObject
