@@ -23,7 +23,7 @@
 @property (nonatomic,strong) NSArray<NIMLinkModel *> *links;
 @property (nonatomic,strong) NSString *text;
 
-+ (NIMLinkModelPraserResult *) praser:(NSString *)text;
++ (nonnull NIMLinkModelPraserResult *) praser:(NSString *)text;
 
 @end
 
