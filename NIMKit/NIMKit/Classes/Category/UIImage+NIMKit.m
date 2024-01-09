@@ -290,6 +290,10 @@
     {
         return  self;
     }
+
+    if (targetSize.width <= 0 || targetSize.height <= 0) {
+        return self;
+    }
     
     if (targetSize.width / targetSize.height > sourceSize.width / sourceSize.height)
     {

@@ -101,6 +101,9 @@
 
 - (UIImage*)imageAddCorner:(UIImage *)image radius:(CGFloat)radius andSize:(CGSize)size
 {
+    if (size.width <= 0 || size.height <= 0) {
+        return NULL;
+    }
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     
     UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
